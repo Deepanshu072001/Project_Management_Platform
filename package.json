@@ -1,0 +1,20 @@
+{
+  "name": "project-management-platform",
+  "version": "1.0.0",
+  "description": "a project management platform application is a RESTFUL API service designed to support collaborative project management.  ",
+  "keywords": [
+    "project management",
+    "api creation",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "deepanshu",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}
