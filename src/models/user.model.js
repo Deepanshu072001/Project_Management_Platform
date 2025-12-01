@@ -32,12 +32,12 @@ const userSchema = new Schema(
             trim: true,
         },
         fullName: {
-            type: true,
+            type: String,
             trim: true
         },
         password: {
             type: String,
-            required: [ true, "Password is required"]
+            required: [ true, "Password is required" ]
         },
         isEmailVerified: {
             type: Boolean,
