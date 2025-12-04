@@ -22,9 +22,22 @@ app.use(cors({
 
 import healthCheckRouter from "./routes/healthcheck.route.js";
 import authRouter from "./routes/auth.route.js"
+import projectRouter from "./routes/project.route.js";
+import memberRouter from "./routes/member.route.js";
+import taskRouter from "./routes/task.route.js";
+import subtaskRouter from "./routes/subtask.route.js";
+import noteRouter from "./routes/note.route.js";
+import adminRouter from "./routes/admin.route.js";
+
 
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/projects", projectRouter);
+app.use("/api/v1/projects", memberRouter);
+app.use("/api/v1/tasks", taskRouter);
+app.use("/api/v1/subtasks", subtaskRouter);
+app.use("/api/v1/notes", noteRouter);
+app.use("/api/v1/admin", adminRouter);
 
 
 app.get('/', (req, res) => {

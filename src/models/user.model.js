@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import  jwt  from "jsonwebtoken";
 import crypto from "crypto";
+import { AvailableUserRole } from "../utils/constants.js";
 
 
 const userSchema = new Schema(
@@ -38,6 +39,13 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: [ true, "Password is required" ]
+        },
+        role: {
+            type: String,
+            enum: AvailableUserRole, // uses the same enum values defined in constants
+            default: "member",
+            required: true,
+            index: true
         },
         isEmailVerified: {
             type: Boolean,
@@ -79,7 +87,8 @@ userSchema.methods.generateAccessToken = function() {
         {
             _id: this._id,
             email: this.email,
-            username: this.username
+            username: this.username,
+            role: this.role
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: process.env.ACCESS_TOKEN_EXPIRY },
@@ -108,4 +117,4 @@ userSchema.methods.generateTemporaryToken = function() {
     return { unHashedToken, hashedToken, tokenExpiry }
 };
 
-export const User = mongoose.model("User", userSchema)
+export const User = mongoose.model("User", userSchema);

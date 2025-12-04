@@ -1,9 +1,11 @@
+import crypto from "crypto";
 import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/api-response.js";
 import { ApiError } from "../utils/api-error.js";
 import { asyncHandler } from "../utils/async-handler.js";
 import { sendEmail, emailVerificationMailGenContent, forgotPasswordMailGenContent } from "../utils/mail.js";
 import jwt from "jsonwebtoken";
+import { AvailableUserRole } from "../utils/constants.js";
 
 
 const generateAccessAndRefreshTokens = async ( userId ) => {
@@ -38,6 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
         password,
         username,
         isEmailVerified: false,
+        role: AvailableUserRole.includes(role)?role : "member"
     });
 
     const { unHashedToken, hashedToken, tokenExpiry } = user.generateTemporaryToken();
@@ -329,7 +332,7 @@ const changeCurrentPassword = asyncHandler(async(req, res) => {
 
     const user = await User.findById(req.user?._id);
 
-    const isPasswordValid = await User.isPasswordCorrect(oldPassword)
+    const isPasswordValid = await user.isPasswordCorrect(oldPassword)
 
     if(!isPasswordValid) {
         throw new ApiError(400, "Invalid old password")
