@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";   // ← ADD THIS
+
 
 const app = express();
 
@@ -8,15 +10,18 @@ app.use(express.json({ limit: "15kb"}));
 app.use(express.urlencoded({ extended: true, 
     limit: "15kb"}));
 app.use(express.static("public"));
+app.use(cookieParser());                     // ← AND ADD THIS
+
 
 //cors configuration
 app.use(cors({
-    origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:3000", //or 5173 for vite
-    credentials: true,
-    methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: [" Content-Type", "Authorization"],
-}),
-);
+  origin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(",").map(o => o.trim())
+    : ["http://localhost:5173", "http://localhost:3000"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
 //import the routes
 
