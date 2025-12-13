@@ -50,7 +50,8 @@ export const getNotes = asyncHandler(async (req, res) => {
   if (!isMember(project, req.user._id))
     throw new ApiError(403, "You are not part of this project");
 
-  const notes = await Note.find({ projectId });
+  const notes = await Note.find({ projectId })
+     .populate("createdBy", "username email");
 
   return res
     .status(200)
@@ -68,7 +69,9 @@ export const getNoteDetails = asyncHandler(async (req, res) => {
   if (!isMember(project, req.user._id))
     throw new ApiError(403, "You are not part of this project");
 
-  const note = await Note.findById(noteId);
+  const note = await Note.findById(noteId)
+      .populate("createdBy", "username email");
+
   if (!note) throw new ApiError(404, "Note not found");
 
   return res

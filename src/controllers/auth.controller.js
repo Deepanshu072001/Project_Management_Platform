@@ -35,10 +35,19 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(409, "User with email or username already exists", [])
     }
 
+    // Handle avatar upload
+  let avatarObj = null;
+  if (req.file) {
+    avatarObj = {
+      url: `/uploads/avatars/${req.file.filename}`,
+    };
+  }
+
     const user = await User.create({
         email,
         password,
         username,
+        avatar: avatarObj,
         isEmailVerified: false,
         role: AvailableUserRole.includes(role)?role : "member"
     });

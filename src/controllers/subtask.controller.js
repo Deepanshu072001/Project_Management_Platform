@@ -18,6 +18,18 @@ const checkManager = (project, userId) =>
       ["admin", "project_admin"].includes(m.role)
   );
 
+// Get subtask
+export const getSubtasks = asyncHandler(async (req, res) => {
+  const { projectId, taskId } = req.params;
+
+  const subtasks = await Subtask.find({ projectId, taskId });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, subtasks, "Subtasks fetched successfully"));
+});
+
+
 // Create Subtask
 
 export const createSubtask = asyncHandler(async (req, res) => {

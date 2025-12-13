@@ -3,6 +3,7 @@ import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
+  getSubtasks,
   createSubtask,
   updateSubtask,
   deleteSubtask
@@ -15,6 +16,9 @@ import {
 const router = Router();
 
 router.use(verifyJWT);
+
+//  Fetch Subtasks
+router.get("/:projectId/t/:taskId/subtasks", getSubtasks);
 
 // Create Subtask
 router.post(

@@ -33,6 +33,7 @@ import taskRouter from "./routes/task.route.js";
 import subtaskRouter from "./routes/subtask.route.js";
 import noteRouter from "./routes/note.route.js";
 import adminRouter from "./routes/admin.route.js";
+import userRouter from "./routes/user.route.js";  // avatar 
 
 
 app.use("/api/v1/healthcheck", healthCheckRouter);
@@ -43,6 +44,7 @@ app.use("/api/v1/tasks", taskRouter);
 app.use("/api/v1/subtasks", subtaskRouter);
 app.use("/api/v1/notes", noteRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/users", userRouter); // avatar route
 
 
 app.get('/', (req, res) => {
