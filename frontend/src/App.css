@@ -1,0 +1,320 @@
+/* =========================
+   App.css — Modern Admin UI
+   Glass + Neon theme, light & dark
+   Uses your Figma tokens for color variables
+   ========================= */
+
+/* ---------- Root tokens (from Figma token provided) ---------- */
+:root{
+  /* core colors */
+  --color-primary: #2962FF;
+  --color-blue-400: #42A5F5;
+  --bg-default: #F5F7FB;
+  --surface: #FFFFFF;
+  --text-primary: #0F141A;
+  --text-muted: #6F7885;
+  --success: #43A047;
+  --warning: #FB8C00;
+  --danger: #E53935;
+  --info: #0288D1;
+
+  /* radii & spacing */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+
+  /* shadows */
+  --shadow-soft: 0 6px 24px rgba(16,24,40,0.06);
+  --shadow-strong: 0 12px 40px rgba(2,6,23,0.35);
+
+  /* neon */
+  --neon-main: rgba(0,229,255,0.9);
+  --neon-accent: rgba(41,98,255,0.85);
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  --bg-default: #0F141A;
+  --surface: #12151C;
+  --text-primary: #F4F7FA;
+  --text-muted: #A7B0BB;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.6);
+  --shadow-strong: 0 18px 50px rgba(0,0,0,0.75);
+  --neon-main: rgba(0,229,255,0.95);
+  --neon-accent: rgba(0,140,255,0.95);
+}
+
+/* Basic reset */
+* { box-sizing: border-box; margin:0; padding:0; transition: all 0.18s ease; }
+html,body,#root { height:100%; }
+body {
+  font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial;
+  background: var(--bg-default);
+  color: var(--text-primary);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  padding: 0;
+  margin: 0;
+}
+
+/* ---------- Scrollbar (subtle) ---------- */
+::-webkit-scrollbar{ width:9px; height:9px; }
+::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.15); border-radius:8px; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.06); }
+
+/* ---------- Utility layout ---------- */
+.container-padding { padding: var(--space-md); }
+.gap-1{ gap:6px; } .gap-2{ gap:12px; } .gap-3{ gap:18px; }
+
+/* ---------- Glass effect helper ---------- */
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* For dark theme glass */
+[data-theme="dark"] .glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* ---------- MUI Paper global tweaks (cards) ---------- */
+.MuiPaper-root {
+  background: var(--surface) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+/* darker border in dark mode */
+[data-theme="dark"] .MuiPaper-root {
+  border: 1px solid rgba(255,255,255,0.04) !important;
+}
+
+/* ---------- Navbar (glass + neon accent) ---------- */
+/* class used in Navbar.jsx: navbar-glass and navbar-title */
+.navbar-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35));
+  box-shadow: 0 8px 30px rgba(10,18,40,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Dark variant overrides */
+[data-theme="dark"] .navbar-glass {
+  background: linear-gradient(180deg, rgba(6,10,18,0.55), rgba(6,10,18,0.25));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* Title */
+.navbar-title {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--text-primary) !important;
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+[data-theme="dark"] .navbar-title {
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 12px var(--neon-main);
+}
+
+/* Navbar icons look */
+.navbar-glass .MuiIconButton-root {
+  border-radius: 10px;
+}
+.navbar-glass .MuiIconButton-root:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* ---------- Sidebar modern look ---------- */
+/* (PaperProps in Sidebar.jsx set width & gradient; these help refine) */
+.MuiDrawer-paper {
+  border-radius: 0 16px 16px 0;
+  padding-bottom: 24px;
+}
+
+/* Sidebar inner */
+.sidebar-profile {
+  display:flex;
+  gap: 12px;
+  align-items:center;
+  padding-bottom: 12px;
+}
+.sidebar-profile .MuiAvatar-root {
+  width:54px; height:54px; border: 2px solid rgba(255,255,255,0.06);
+}
+
+/* Sidebar list items */
+.MuiList-root .MuiListItemButton-root {
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  transition: transform 0.14s ease, background 0.14s ease;
+}
+.MuiList-root .MuiListItemButton-root:hover {
+  transform: translateY(-4px) scale(1.01);
+  background: linear-gradient(90deg, rgba(41,98,255,0.06), rgba(0,229,255,0.03));
+  box-shadow: var(--shadow-soft);
+}
+
+/* Mark active item (if you add an 'active' class to the button) */
+.MuiList-root .MuiListItemButton-root.active {
+  background: linear-gradient(90deg, rgba(0,229,255,0.06), rgba(41,98,255,0.06));
+  border: 1px solid rgba(0,229,255,0.06);
+  box-shadow: 0 8px 28px rgba(0,229,255,0.06);
+}
+
+/* ---------- Summary / KPI cards ---------- */
+.summary-card {
+  padding: 18px;
+  border-radius: 12px;
+  min-height: 110px;
+  display:flex; flex-direction:column; justify-content:center;
+  gap:8px;
+}
+.summary-card .label { color: var(--text-muted); font-size:13px; }
+.summary-card .value { font-size:36px; font-weight:700; color: var(--color-primary); }
+
+/* Neon small badge */
+.kpi-badge {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--neon-main), var(--neon-accent));
+  color: white;
+  font-weight:600;
+  font-size:12px;
+  box-shadow: 0 8px 32px rgba(0,229,255,0.06);
+}
+
+/* ---------- Panels (Users / Projects / Logs) ---------- */
+.panel-card {
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Dark mode tweaks */
+[data-theme="dark"] .panel-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); }
+
+/* Panel header */
+.panel-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom: 10px; }
+
+/* List item style */
+.panel-list .MuiListItem-root, .panel-list .MuiListItemButton-root {
+  border-radius: 10px;
+  padding: 10px;
+  transition: all 0.14s ease;
+}
+.panel-list .MuiListItem-root:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+
+/* avatar in lists */
+.panel-list .MuiAvatar-root { width:42px; height:42px; }
+
+/* ---------- Buttons ---------- */
+.action-btn {
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+}
+
+.action-btn.outlined {
+  border: 1px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  background: transparent !important;
+}
+.action-btn.filled {
+  background: linear-gradient(90deg, var(--neon-accent), var(--color-primary)) !important;
+  color: white !important;
+  box-shadow: 0 10px 30px rgba(37,99,235,0.12) !important;
+}
+
+/* small neon btn */
+.neon-btn {
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--neon-main);
+  border: 1px solid rgba(0,229,255,0.08);
+  background: linear-gradient(180deg, rgba(0,229,255,0.02), rgba(41,98,255,0.02));
+  box-shadow: 0 6px 18px rgba(0,229,255,0.04);
+}
+
+/* ---------- Charts container ---------- */
+.chart-card {
+  padding: 10px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+/* ---------- Activity log ---------- */
+.activity-box {
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Dark tweaks */
+[data-theme="dark"] .activity-box {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 900px) {
+  .navbar-title { font-size: 1rem; }
+  .panel-list { max-height: 320px; }
+  .summary-card .value { font-size:28px; }
+}
+
+/* ---------- Small interactive niceties ---------- */
+/* hover for avatars */
+.MuiAvatar-root:hover { transform: scale(1.06); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+/* focus rings for small inputs */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--color-primary) !important; box-shadow: 0 6px 20px rgba(41,98,255,0.06); }
+
+/* helper - glass card */
+.glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* subtle animated pulsing for important KPI */
+.kpi-pulse {
+  position: relative;
+}
+.kpi-pulse::after {
+  content: "";
+  position:absolute; inset: -6px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(41,98,255,0.03), rgba(0,229,255,0.02));
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.kpi-pulse:hover::after { opacity: 1; }
+
+/* ---------- small print ---------- */
+.small-muted { color: var(--text-muted); font-size: 0.85rem; }
+
+/* EOF */
