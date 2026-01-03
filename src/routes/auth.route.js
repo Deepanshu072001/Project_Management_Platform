@@ -20,11 +20,12 @@ import {
     userChangeCurrentPasswordValidator 
 } from "../validations/index.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { uploadAvatar } from "../middlewares/avatarUpload.middleware.js";
 
 
 const router = Router();
 
-router.route("/register").post(userRegisterValidator(), validate, registerUser);
+router.route("/register").post(uploadAvatar ,userRegisterValidator(), validate, registerUser);
 
 router.route("/login").post(userLoginValidator(), validate, login);
 
@@ -37,7 +38,7 @@ router.route("/reset-password/:resetToken").post( userResetForgotPasswordValidat
 //secure route
 router.route("/logout").post(verifyJWT, logoutUser);
 
-router.route("/current-user").post(verifyJWT, getCurrentUser);
+router.route("/current-user").get(verifyJWT, getCurrentUser);
 
 router.route("/change-password").post(verifyJWT, userChangeCurrentPasswordValidator(), validate, changeCurrentPassword);
 

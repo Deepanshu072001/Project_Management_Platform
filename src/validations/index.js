@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-
+import { AvailableUserRole } from "../utils/constants.js";
 
 const userRegisterValidator = () => {
     return [
@@ -22,7 +22,10 @@ const userRegisterValidator = () => {
             .notEmpty()
             .withMessage("Password is required"),
         body("fullName").optional().trim(),
-
+        body("role")
+            .optional()
+            .isIn(AvailableUserRole)
+            .withMessage(`Role must be one of: ${AvailableUserRole.join(", ")}`)
     ];
 };
 
